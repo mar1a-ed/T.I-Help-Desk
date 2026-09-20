@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @NoArgsConstructor
@@ -40,6 +42,12 @@ public class User implements Serializable {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "user")
+    private List<Ticket> requestTickets = new ArrayList<>();
+
+    @OneToMany(mappedBy = "support")
+    private List<Ticket> supportTickets = new ArrayList<>();
 
     @Override
     public boolean equals(Object object) {
