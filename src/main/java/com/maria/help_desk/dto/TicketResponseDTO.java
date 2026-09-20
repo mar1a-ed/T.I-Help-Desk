@@ -4,11 +4,14 @@ import com.maria.help_desk.model.Category;
 import com.maria.help_desk.model.Priority;
 import com.maria.help_desk.model.Status;
 import lombok.Data;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDateTime;
 
 @Data
-public class TicketResponseDTO {
+public class TicketResponseDTO extends RepresentationModel<TicketResponseDTO> {
+
+    private Long id;
 
     private Long userId;
 
