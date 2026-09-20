@@ -103,6 +103,16 @@ public class UserService {
         userRepository.delete(user);
     }
 
+    @Transactional
+    public boolean verifyUserRole(Long id, String role){
+        User user = findUserById(id);
+
+        if(!user.getRole().equals(Role.valueOf(role))){
+            return false;
+        }
+
+        return true;
+    }
 }
 
 
