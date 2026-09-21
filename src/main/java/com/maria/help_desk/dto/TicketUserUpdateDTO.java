@@ -1,11 +1,14 @@
 package com.maria.help_desk.dto;
 
 import com.maria.help_desk.model.Category;
-import lombok.Data;
+import lombok.*;
 
 import javax.validation.constraints.Size;
 
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class TicketUserUpdateDTO {
 
     @Size(min = 1, max = 150, message = "Title must be between 1 and 150 characters long.")

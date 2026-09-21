@@ -3,6 +3,7 @@ package com.maria.help_desk.service;
 import com.maria.help_desk.dto.TicketAdminUpdateDTO;
 import com.maria.help_desk.dto.TicketOpenDTO;
 import com.maria.help_desk.dto.TicketUserUpdateDTO;
+import com.maria.help_desk.exception.ClosedFeatureException;
 import com.maria.help_desk.exception.ResourceNotFoundException;
 import com.maria.help_desk.model.*;
 import com.maria.help_desk.repository.TicketRepository;
@@ -151,18 +152,11 @@ public class TicketService {
             ticket.setPriority(dto.getPriority());
         }
 
-        if(dto.getStatus() != null){
-            ticket.setStatus(dto.getStatus());
-        }
+        updateStatus(id);
 
         if(dto.getSupportEmail() != null){
-            User user = userRepository.findByEmail(dto.getSupportEmail());
-
-            if(!userService.verifyUserRole(user.getId(), "ROLE_SUPPORT")){
-                throw new ResourceNotFoundException("The role does not match with the 'Support' role.");
-            }
-
-            ticket.setSupport(user);
+            User support = userRepository.findByEmail(dto.getSupportEmail());
+            assignSupportToTicket(id, support.getId());
         }
 
         ticket.setUpdatedAt(LocalDateTime.now());
@@ -170,6 +164,40 @@ public class TicketService {
         ticketRepository.save(ticket);
 
         return ticket;
+    }
+
+    @Transactional
+    public void updateStatus(Long id){
+        Ticket ticket = findById(id);
+
+        String status = ticket.getStatus().toString();
+        String newStatus;
+
+        switch(status){
+            case "OPEN": newStatus = "PENDING"; break;
+            case "PENDING": newStatus = "RESOLVED"; break;
+            case "RESOLVED": newStatus = "CLOSED"; break;
+            default: throw new ClosedFeatureException("Resource is closed.");
+        }
+
+        ticket.setStatus(Status.valueOf(newStatus));
+
+        ticketRepository.save(ticket);
+
+    }
+
+    @Transactional
+    public void assignSupportToTicket(Long id, Long supportId){
+        Ticket ticket = findById(id);
+        User support = userService.findUserById(supportId);
+
+        if(!support.getRole().equals(Role.ROLE_SUPPORT)){
+            throw new ResourceNotFoundException("The role does not match with the 'Support' role.");
+        }
+
+        ticket.setSupport(support);
+        ticketRepository.save(ticket);
+
     }
 
     @Transactional
