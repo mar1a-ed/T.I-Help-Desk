@@ -10,7 +10,7 @@ describe tb_users;
 
 describe tb_tickets;
 
-alter table tb_users modify column role enum('ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_SUPPORT', 'ROLE_USER');
+alter table tb_users modify column role enum('ROLE_ADMIN', 'ROLE_SUPPORT', 'ROLE_USER');
 
 alter table tb_users add column updated_at datetime(6);
 
