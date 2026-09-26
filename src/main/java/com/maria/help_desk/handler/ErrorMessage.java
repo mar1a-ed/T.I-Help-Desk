@@ -1,7 +1,6 @@
 package com.maria.help_desk.handler;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,4 +1,4 @@
-package com.maria.help_desk.dto;
+package com.maria.help_desk.dto.ticket;
 
 import com.maria.help_desk.model.Category;
 import lombok.*;

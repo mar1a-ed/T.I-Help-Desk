@@ -1,7 +1,6 @@
-package com.maria.help_desk.dto;
+package com.maria.help_desk.dto.user;
 
 import com.maria.help_desk.model.Role;
-import com.maria.help_desk.model.User;
 import lombok.*;
 import org.springframework.hateoas.RepresentationModel;
 

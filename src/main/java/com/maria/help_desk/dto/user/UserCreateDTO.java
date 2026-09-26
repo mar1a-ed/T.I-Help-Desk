@@ -1,5 +1,6 @@
-package com.maria.help_desk.dto;
+package com.maria.help_desk.dto.user;
 
+import com.maria.help_desk.model.Role;
 import lombok.*;
 
 import javax.validation.constraints.Email;
@@ -10,13 +11,15 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @Getter
 @Setter
-public class UserUpdateDTO {
+public class UserCreateDTO {
 
     @NotNull
-    @Size(min = 1, max = 200, message = "Name must be between 1 and 200 characters long.")
-    private String name;
-
     @Email(message = "Insert a valid email address.")
     private String email;
 
+    @NotNull
+    @Size(min = 8, max = 20, message = "Password must be between 8 and 20 characters long.")
+    private String password;
+
+    private Role role;
 }

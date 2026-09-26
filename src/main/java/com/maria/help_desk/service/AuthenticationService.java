@@ -1,9 +1,11 @@
 package com.maria.help_desk.service;
 
-import com.maria.help_desk.dto.LoginDTO;
+import com.maria.help_desk.dto.user.LoginDTO;
+import com.maria.help_desk.exception.InvalidCredentialsException;
 import com.maria.help_desk.jwt.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -18,7 +20,11 @@ public class AuthenticationService {
     private AuthenticationManager authenticationManager;
 
     public String getAuthentication(LoginDTO dto){
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword()));
-        return jwtUtils.getToken(authentication);
+        try{
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword()));
+            return jwtUtils.getToken(authentication);
+        }catch (BadCredentialsException e){
+            throw new InvalidCredentialsException("Invalid email or password.");
+        }
     }
 }

@@ -1,18 +1,15 @@
 package com.maria.help_desk.controller;
 
-import com.maria.help_desk.dto.*;
+import com.maria.help_desk.dto.ticket.*;
 import com.maria.help_desk.model.Ticket;
 import com.maria.help_desk.service.TicketService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Path;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Locale;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
