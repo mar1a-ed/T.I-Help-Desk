@@ -9,6 +9,7 @@ import com.maria.help_desk.repository.UserRepository;
 import com.maria.help_desk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -26,6 +27,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'SUPPORT')")
     @PostMapping
     public ResponseEntity<UserResponseDTO> createUser(@RequestBody @Valid UserCreateDTO dto){
         User user = userService.createUser(dto);
@@ -33,6 +35,7 @@ public class UserController {
         return ResponseEntity.ok().body(UserMapper.toDto(user));
     }
 
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'SUPPORT')")
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDTO> findUserById(@PathVariable(value = "id") Long id){
         User user = userService.findUserById(id);
@@ -43,6 +46,7 @@ public class UserController {
         return ResponseEntity.ok().body(dto);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<List<UserResponseDTO>> findAll(){
         List<User> users = userService.findAll();
@@ -57,6 +61,7 @@ public class UserController {
         return ResponseEntity.ok().body(dto);
     }
 
+    @PreAuthorize("hasRole('USER')")
     @PatchMapping("{id}")
     public ResponseEntity<UserResponseDTO> updateUser(@PathVariable(value = "id") Long id, @RequestBody @Valid UserUpdateDTO dto){
         User user = userService.updateUser(id, dto);
@@ -68,6 +73,7 @@ public class UserController {
         return ResponseEntity.ok().body(userDto);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("{id}")
     public ResponseEntity<?> deleteUser(@PathVariable(value = "id") Long id){
         userService.deleteUser(id);

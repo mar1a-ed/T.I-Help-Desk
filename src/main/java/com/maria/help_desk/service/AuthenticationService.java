@@ -18,7 +18,7 @@ public class AuthenticationService {
     private AuthenticationManager authenticationManager;
 
     public String getAuthentication(LoginDTO dto){
-        Authentication authentication = new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword());
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword()));
         return jwtUtils.getToken(authentication);
     }
 }
