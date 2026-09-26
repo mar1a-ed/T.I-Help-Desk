@@ -1,6 +1,6 @@
 package com.maria.help_desk.controller;
 
-import com.maria.help_desk.dto.LoginDTO;
+import com.maria.help_desk.dto.user.LoginDTO;
 import com.maria.help_desk.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

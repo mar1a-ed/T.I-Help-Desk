@@ -1,11 +1,10 @@
 package com.maria.help_desk.controller;
 
-import com.maria.help_desk.dto.UserCreateDTO;
-import com.maria.help_desk.dto.UserMapper;
-import com.maria.help_desk.dto.UserResponseDTO;
-import com.maria.help_desk.dto.UserUpdateDTO;
+import com.maria.help_desk.dto.user.UserCreateDTO;
+import com.maria.help_desk.dto.user.UserMapper;
+import com.maria.help_desk.dto.user.UserResponseDTO;
+import com.maria.help_desk.dto.user.UserUpdateDTO;
 import com.maria.help_desk.model.User;
-import com.maria.help_desk.repository.UserRepository;
 import com.maria.help_desk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;

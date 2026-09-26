@@ -1,4 +1,4 @@
-package com.maria.help_desk.dto;
+package com.maria.help_desk.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

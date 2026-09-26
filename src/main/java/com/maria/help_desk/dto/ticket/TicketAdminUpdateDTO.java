@@ -1,7 +1,6 @@
-package com.maria.help_desk.dto;
+package com.maria.help_desk.dto.ticket;
 
 import com.maria.help_desk.model.Priority;
-import com.maria.help_desk.model.Status;
 import lombok.*;
 
 import javax.validation.constraints.Email;

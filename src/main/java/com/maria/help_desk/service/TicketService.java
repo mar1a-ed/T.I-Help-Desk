@@ -1,10 +1,11 @@
 package com.maria.help_desk.service;
 
-import com.maria.help_desk.dto.TicketAdminUpdateDTO;
-import com.maria.help_desk.dto.TicketOpenDTO;
-import com.maria.help_desk.dto.TicketUserUpdateDTO;
+import com.maria.help_desk.dto.ticket.TicketAdminUpdateDTO;
+import com.maria.help_desk.dto.ticket.TicketOpenDTO;
+import com.maria.help_desk.dto.ticket.TicketUserUpdateDTO;
 import com.maria.help_desk.exception.ClosedFeatureException;
 import com.maria.help_desk.exception.ResourceNotFoundException;
+import com.maria.help_desk.exception.TicketNotFoundException;
 import com.maria.help_desk.model.*;
 import com.maria.help_desk.repository.TicketRepository;
 import com.maria.help_desk.repository.UserRepository;
@@ -35,7 +36,7 @@ public class TicketService {
         User user = userRepository.findByEmail(dto.getUserEmail());
 
         if(user == null){
-            throw new ResourceNotFoundException("User not found.");
+            throw new TicketNotFoundException("User not found.");
         }
 
         ticket.setTitle(dto.getTitle());
@@ -65,7 +66,7 @@ public class TicketService {
     @Transactional
     public Ticket findById(Long id){
         Ticket ticket = ticketRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Ticket not found.")
+                () -> new TicketNotFoundException("Ticket not found.")
         );
 
         return ticket;
@@ -76,7 +77,7 @@ public class TicketService {
         List<Ticket> tickets = ticketRepository.findAll();
 
         if(tickets == null){
-            throw new ResourceNotFoundException("Tickets not found.");
+            throw new TicketNotFoundException("Tickets not found.");
         }
 
         return tickets;
@@ -89,7 +90,7 @@ public class TicketService {
         List<Ticket> tickets = ticketRepository.findByPriority(Priority.valueOf(priority));
 
         if(tickets == null){
-            throw new ResourceNotFoundException("Tickets not found.");
+            throw new TicketNotFoundException("Tickets not found.");
         }
 
         return tickets;
@@ -102,7 +103,7 @@ public class TicketService {
         List<Ticket> tickets = ticketRepository.findByStatus(Status.valueOf(status));
 
         if(tickets == null){
-            throw new ResourceNotFoundException("Tickets not found.");
+            throw new TicketNotFoundException("Tickets not found.");
         }
 
         return tickets;
@@ -115,7 +116,7 @@ public class TicketService {
         List<Ticket> tickets = ticketRepository.findByCategory(Category.valueOf(category));
 
         if(tickets == null){
-            throw new ResourceNotFoundException("Tickets not found.");
+            throw new TicketNotFoundException("Tickets not found.");
         }
 
         return tickets;

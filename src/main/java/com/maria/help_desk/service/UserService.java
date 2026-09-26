@@ -1,9 +1,9 @@
 package com.maria.help_desk.service;
 
-import com.maria.help_desk.dto.UserCreateDTO;
-import com.maria.help_desk.dto.UserUpdateDTO;
+import com.maria.help_desk.dto.user.UserCreateDTO;
+import com.maria.help_desk.dto.user.UserUpdateDTO;
 import com.maria.help_desk.exception.ResourceAlreadyExistsException;
-import com.maria.help_desk.exception.ResourceNotFoundException;
+import com.maria.help_desk.exception.UserNotFoundException;
 import com.maria.help_desk.model.Role;
 import com.maria.help_desk.model.User;
 import com.maria.help_desk.repository.UserRepository;
@@ -56,7 +56,7 @@ public class UserService {
     @Transactional
     public User findUserById(Long id){
         User user = userRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("User not found.")
+                () -> new UserNotFoundException("User not found.")
         );
 
         return user;
@@ -67,7 +67,7 @@ public class UserService {
         List<User> users = userRepository.findAll();
 
         if(users == null){
-            throw new ResourceNotFoundException("Users not found.");
+            throw new UserNotFoundException("Users not found.");
         }
 
         return users;
@@ -103,16 +103,6 @@ public class UserService {
         userRepository.delete(user);
     }
 
-    @Transactional
-    public boolean verifyUserRole(Long id, String role){
-        User user = findUserById(id);
-
-        if(!user.getRole().equals(Role.valueOf(role))){
-            return false;
-        }
-
-        return true;
-    }
 }
 
 
