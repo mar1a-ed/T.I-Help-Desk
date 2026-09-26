@@ -22,7 +22,7 @@ import java.util.Objects;
 @Setter
 @Entity
 @Table(name = "tb_users")
-public class User implements UserDetails {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,18 +65,4 @@ public class User implements UserDetails {
         return Objects.hashCode(id);
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
-    }
-
-    @Override
-    public String getUsername() {
-        return email;
-    }
-
-    @Override
-    public String getPassword(){
-        return password;
-    }
 }
