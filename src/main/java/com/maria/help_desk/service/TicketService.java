@@ -6,6 +6,7 @@ import com.maria.help_desk.dto.ticket.TicketUserUpdateDTO;
 import com.maria.help_desk.exception.ClosedFeatureException;
 import com.maria.help_desk.exception.ResourceNotFoundException;
 import com.maria.help_desk.exception.TicketNotFoundException;
+import com.maria.help_desk.exception.UserNotFoundException;
 import com.maria.help_desk.model.*;
 import com.maria.help_desk.repository.TicketRepository;
 import com.maria.help_desk.repository.UserRepository;
@@ -36,7 +37,7 @@ public class TicketService {
         User user = userRepository.findByEmail(dto.getUserEmail());
 
         if(user == null){
-            throw new TicketNotFoundException("User not found.");
+            throw new UserNotFoundException("User not found.");
         }
 
         ticket.setTitle(dto.getTitle());
