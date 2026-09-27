@@ -20,6 +20,6 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<String> getAuthentication(@RequestBody @Valid LoginDTO dto){
-        return ResponseEntity.ok().body("Token: "+authenticationService.getAuthentication(dto));
+        return ResponseEntity.ok().body(authenticationService.getAuthentication(dto));
     }
 }

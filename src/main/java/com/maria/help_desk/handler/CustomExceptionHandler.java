@@ -74,9 +74,9 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler(InvalidCredentialsException.class)
     public ResponseEntity<ErrorMessage> invalidCredentialsException(InvalidCredentialsException e, WebRequest request){
-        ErrorMessage errorMessage = new ErrorMessage(HttpStatus.UNAUTHORIZED.value(), e.getMessage(), request.getDescription(false), LocalDateTime.now());
+        ErrorMessage errorMessage = new ErrorMessage(HttpStatus.BAD_REQUEST.value(), e.getMessage(), request.getDescription(false), LocalDateTime.now());
 
-        return new ResponseEntity<>(errorMessage, HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 
 }

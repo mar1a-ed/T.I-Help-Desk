@@ -25,8 +25,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN', 'SUPPORT')")
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<UserResponseDTO> createUser(@RequestBody @Valid UserCreateDTO dto){
         User user = userService.createUser(dto);
 
