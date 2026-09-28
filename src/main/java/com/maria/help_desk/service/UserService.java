@@ -1,7 +1,7 @@
 package com.maria.help_desk.service;
 
-import com.maria.help_desk.dto.user.UserCreateDTO;
-import com.maria.help_desk.dto.user.UserUpdateDTO;
+import com.maria.help_desk.dto.user.*;
+import com.maria.help_desk.exception.InvalidJsonException;
 import com.maria.help_desk.exception.ResourceAlreadyExistsException;
 import com.maria.help_desk.exception.UserNotFoundException;
 import com.maria.help_desk.model.Role;
@@ -9,6 +9,8 @@ import com.maria.help_desk.model.User;
 import com.maria.help_desk.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,10 @@ public class UserService {
             throw new ResourceAlreadyExistsException("Email already exists! Insert another valid email.");
         }
 
+        if(dto == null){
+            throw new InvalidJsonException("Invalid Json. Insert a valid information.");
+        }
+
         String role;
 
         if(dto.getRole() == null){
@@ -49,6 +55,15 @@ public class UserService {
         user.setCreatedAt(createdTime);
 
         userRepository.save(user);
+
+        return user;
+    }
+
+    @Transactional
+    public User getMyUser(Authentication authentication) {
+        String email = authentication.getName();
+
+        User user = userRepository.findByEmail(email);
 
         return user;
     }
@@ -74,22 +89,41 @@ public class UserService {
     }
 
     @Transactional
-    public User updateUser(Long id, UserUpdateDTO dto){
-        User user = findUserById(id);
+    public User updateMe(Authentication authentication, UserUpdateDTO dto){
+        String email = authentication.getName();
 
-        if(user.getEmail().equals(dto.getEmail())){
-            throw new ResourceAlreadyExistsException("Enter an email address other than you current one.");
+        User user = userRepository.findByEmail(email);
+
+        if(dto == null){
+            throw new InvalidJsonException("Invalid Json. Insert a valid information.");
         }
 
-        LocalDateTime updatedTime = LocalDateTime.now();
-
-        user.setName(dto.getName());
+        if(dto.getName() != null){
+            user.setName(dto.getName());
+        }
 
         if(dto.getEmail() != null){
             user.setEmail(dto.getEmail());
         }
 
-        user.setUpdatedAt(updatedTime);
+        user.setUpdatedAt(LocalDateTime.now());
+
+        userRepository.save(user);
+
+        return user;
+    }
+
+    @Transactional
+    public User updateUserByAdmin(Long id, UserUpdateAdminDTO dto){
+        User user = findUserById(id);
+
+        if(dto == null){
+            throw new InvalidJsonException("Invalid Json. Insert a valid information.");
+        }
+
+        user.setRole(dto.getRole());
+
+        user.setUpdatedAt(LocalDateTime.now());
 
         userRepository.save(user);
 
