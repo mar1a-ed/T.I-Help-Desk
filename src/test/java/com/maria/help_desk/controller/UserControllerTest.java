@@ -53,7 +53,7 @@ public class UserControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
-                                    "email": "lilian@gmail.com",
+                                    "email": "venina@gmail.com",
                                     "password": "12345678"                       
                                 }
                                 """))

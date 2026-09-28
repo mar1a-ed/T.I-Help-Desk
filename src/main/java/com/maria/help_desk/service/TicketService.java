@@ -3,10 +3,7 @@ package com.maria.help_desk.service;
 import com.maria.help_desk.dto.ticket.TicketAdminUpdateDTO;
 import com.maria.help_desk.dto.ticket.TicketOpenDTO;
 import com.maria.help_desk.dto.ticket.TicketUserUpdateDTO;
-import com.maria.help_desk.exception.ClosedFeatureException;
-import com.maria.help_desk.exception.ResourceNotFoundException;
-import com.maria.help_desk.exception.TicketNotFoundException;
-import com.maria.help_desk.exception.UserNotFoundException;
+import com.maria.help_desk.exception.*;
 import com.maria.help_desk.model.*;
 import com.maria.help_desk.repository.TicketRepository;
 import com.maria.help_desk.repository.UserRepository;
@@ -38,6 +35,10 @@ public class TicketService {
 
         if(user == null){
             throw new UserNotFoundException("User not found.");
+        }
+
+        if(dto == null){
+            throw new InvalidJsonException("Invalid Json. Insert a valid json.");
         }
 
         ticket.setTitle(dto.getTitle());
@@ -125,6 +126,10 @@ public class TicketService {
 
     @Transactional
     public Ticket updateTicketUser(Long id, TicketUserUpdateDTO dto){
+        if(dto == null){
+            throw new InvalidJsonException("Invalid Json. Insert a valid json.");
+        }
+
         Ticket ticket = findById(id);
 
         if(dto.getTitle() != null){
@@ -148,6 +153,10 @@ public class TicketService {
 
     @Transactional
     public Ticket updateTicketAdmin(Long id, TicketAdminUpdateDTO dto){
+        if(dto == null){
+            throw new InvalidJsonException("Invalid Json. Insert a valid json.");
+        }
+
         Ticket ticket = findById(id);
 
         if(dto.getPriority() != null){

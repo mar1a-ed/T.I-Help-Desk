@@ -19,6 +19,15 @@ target/
 *.iml
 *.ipr
 
+### spring
+.env
+.env.*
+application.properties
+
+### chaves
+*.pem
+*.key
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/

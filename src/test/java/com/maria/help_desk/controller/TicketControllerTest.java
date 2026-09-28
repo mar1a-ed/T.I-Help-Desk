@@ -88,7 +88,7 @@ public class TicketControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
-                                    "email": "lilian@gmail.com",
+                                    "email": "venina@gmail.com",
                                     "password": "12345678"
                                 }
                                 """)
@@ -108,7 +108,7 @@ public class TicketControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
-                                    "email": "lilian@gmail.com",
+                                    "email": "venina@gmail.com",
                                     "password": "12345678"
                                 }
                                 """)
