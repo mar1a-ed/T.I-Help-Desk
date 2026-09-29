@@ -114,7 +114,7 @@ Service
      ↓
 Repository
      ↓
-MySQL
+PostgreSQL
 ```
 
 ### Principais responsabilidades
@@ -156,7 +156,7 @@ Centraliza o tratamento das exceções da aplicação através de `RestControlle
 | RSA               | Assinatura dos tokens          |
 | Spring Data JPA   | Persistência de dados          |
 | Hibernate         | ORM                            |
-| MySQL             | Banco de dados                 |
+| PostgreSQL        | Banco de dados                 |
 | Maven             | Gerenciamento de dependências  |
 | BCrypt            | Criptografia de senhas         |
 | JUnit             | Testes automatizados           |
@@ -296,7 +296,7 @@ Antes de executar o projeto, é necessário possuir:
 
 * Java 21;
 * Maven;
-* MySQL;
+* PostgreSQL;
 * Git.
 
 ### 1. Clone o repositório
