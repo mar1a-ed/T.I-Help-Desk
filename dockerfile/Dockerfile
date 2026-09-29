@@ -1,4 +1,4 @@
-FROM eclipse-temurin:21-jdk
+FROM docker.io/library/eclipse-temurin:21-jdk
 
 WORKDIR /app
 
@@ -9,4 +9,4 @@ RUN ./mvnw clean package -DskipTests
 
 EXPOSE 8080
 
-CMD ["sh", "-c", "java -jar target/*.jar"]
+CMD ["java", "-jar", "target/help_desk-0.0.1-SNAPSHOT.jar"]
